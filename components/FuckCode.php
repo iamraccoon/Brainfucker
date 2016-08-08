@@ -1,8 +1,13 @@
 <?php
 
+namespace components;
+
+/**
+ * Class FuckCode
+ */
 class FuckCode
 {
-    public function getRandomCoefficientRate($firstAttempt = 1)
+    private function getRandomCoefficientRate(int $firstAttempt = 1): int
     {
         if ($firstAttempt) {
             return rand(7, 18);
@@ -11,7 +16,7 @@ class FuckCode
         return rand(2, 7);
     }
 
-    public function getCountFirstLetters($necessaryCode)
+    public function getCountFirstLetters(int $necessaryCode): int
     {
         $k = $necessaryCode % $this->getRandomCoefficientRate();
 
@@ -22,7 +27,7 @@ class FuckCode
         return $k;
     }
 
-    public function getLoopLetters($count)
+    public function getLoopLetters(int $count): string
     {
         $result = '[>';
         while ($count) {
@@ -34,7 +39,7 @@ class FuckCode
         return $result;
     }
 
-    public function getFirstLetters($count)
+    public function getFirstLetters(int $count): string
     {
         $result = '';
         while ($count) {
@@ -45,52 +50,10 @@ class FuckCode
         return $result;
     }
 
-    public function getEndLetters($resultingString, $ensureAsciiCode)
+    public function getEndLetters(string $resultingString, int $ensureAsciiCode): string
     {
-        $arr = str_split($resultingString);
-        $res = array();
-
-        $i = 0;
-        for($j = 0; $j < count($arr); $j++) {
-            switch ($arr[$j]) {
-                case '+':
-                    $res[$i]++;
-                    break;
-                case '-':
-                    $res[$i]--;
-                    break;
-                case '>':
-                    $i++;
-                    break;
-                case '<':
-                    $i--;
-                    break;
-                case "[" :
-                    if(!$res[$i]) {
-                        $hasBrackets = false;
-                        while(!$hasBrackets) {
-                            $j++;
-                            if($arr[$j] == ']') {
-                                $hasBrackets = true;
-                            }
-                        }
-                    }
-                    break;
-                case "]" :
-                    if($res[$i]) {
-                        $hasBrackets = false;
-                        while(!$hasBrackets) {
-                            $j--;
-                            if($arr[$j] == '[') {
-                                $hasBrackets = true;
-                            }
-                        }
-                    }
-                    break;
-            }
-        }
-
-        $currentAsciiCode = array_pop($res);
+        $brainArray = $this->makeBrainCode($resultingString);
+        $currentAsciiCode = array_pop($brainArray);
 
         $result = '>';
 
@@ -104,8 +67,56 @@ class FuckCode
         return $result;
     }
 
-    public function getCountLoopLetters($necessaryCode, $countFirstLetters)
+    public function getCountLoopLetters(int $necessaryCode, int $countFirstLetters): int
     {
         return floor($necessaryCode / $countFirstLetters);
+    }
+
+    private function makeBrainCode(string $string): array
+    {
+        $arrayChars = str_split($string);
+        $result = array();
+
+        $i = 0;
+        for ($j = 0; $j < count($arrayChars); $j++) {
+            switch ($arrayChars[$j]) {
+                case '+':
+                    $result[$i]++;
+                    break;
+                case '-':
+                    $result[$i]--;
+                    break;
+                case '>':
+                    $i++;
+                    break;
+                case '<':
+                    $i--;
+                    break;
+                case "[" :
+                    if (!$result[$i]) {
+                        $hasBrackets = false;
+                        while (!$hasBrackets) {
+                            $j++;
+                            if ($arrayChars[$j] == ']') {
+                                $hasBrackets = true;
+                            }
+                        }
+                    }
+                    break;
+                case "]" :
+                    if ($result[$i]) {
+                        $hasBrackets = false;
+                        while (!$hasBrackets) {
+                            $j--;
+                            if ($arrayChars[$j] == '[') {
+                                $hasBrackets = true;
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        return $result;
     }
 } 
