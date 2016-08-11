@@ -26,7 +26,7 @@ class Director
      * @param $char
      * @return mixed|string
      */
-    public function build($char)
+    public function buildChar($char)
     {
         $necessaryAsciiCode = $this->builder->getNecessaryAsciiCode($char);
 
@@ -40,5 +40,21 @@ class Director
         $resultingString .= $this->builder->getLastLetters($countEndSymbols);
 
         return $resultingString;
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function build($string)
+    {
+        $arrayCharacters = str_split($string);
+
+        $resultingArray = [];
+        foreach ($arrayCharacters as $char) {
+            $resultingArray[] = $this->buildChar($char);
+        }
+
+        return implode($resultingArray, '>');
     }
 }
