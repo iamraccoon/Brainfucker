@@ -1,10 +1,7 @@
 <?php
 
-namespace components;
-
 /**
- * Class FuckDirector
- * @package components
+ * Class Director
  */
 class Director
 {

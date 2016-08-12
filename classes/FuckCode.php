@@ -1,10 +1,7 @@
 <?php
 
-namespace components;
-
 /**
  * Class FuckCode
- * @package components
  */
 class FuckCode extends AbstractBuilder
 {
@@ -150,15 +147,7 @@ class FuckCode extends AbstractBuilder
                     $i--;
                     break;
                 case "[" :
-                    if (!$result[$i]) {
-                        $hasBrackets = false;
-                        while (!$hasBrackets) {
-                            $j++;
-                            if ($arrayChars[$j] == ']') {
-                                $hasBrackets = true;
-                            }
-                        }
-                    }
+                    $j = strripos($string, '[');
                     break;
                 case "]" :
                     if ($result[$i]) {

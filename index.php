@@ -1,11 +1,12 @@
 <?php
 
-include_once 'components/AbstractBuilder.php';
-include_once 'components/FuckCode.php';
-include_once 'components/Director.php';
+spl_autoload_register(function ($class) {
+    include 'classes/' . $class . '.php';
+});
 
-$fuck = new \components\FuckCode();
-$director = new \components\Director($fuck);
+
+$fuck = new FuckCode();
+$director = new Director($fuck);
 
 $string = 'I am raccoon';
 $code = $director->build($string);

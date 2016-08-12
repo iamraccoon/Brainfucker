@@ -1,10 +1,7 @@
 <?php
 
-namespace components;
-
 /**
- * Interface BuilderInterface
- * @package components
+ * Class AbstractBuilder
  */
 abstract class AbstractBuilder
 {
